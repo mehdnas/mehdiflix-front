@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {NavBarComponent} from "./top-bar/nav-bar.component";
+import {NavBarComponent} from "./nav-bar/nav-bar.component";
+import {UserService} from "./user.service";
+import {User} from "./User";
 
 @Component({
   selector: 'app-root',
@@ -10,5 +12,14 @@ import {NavBarComponent} from "./top-bar/nav-bar.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'mehdiflix-front';
+
+  private user?: User;
+  private username: string = "pepe"
+
+  constructor(private userService: UserService) { }
+
+  getUser(username: string) {
+    this.userService.getUser(this.username)
+  }
+
 }
