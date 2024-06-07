@@ -10,7 +10,7 @@ export class SeriesService {
 
   private seriesUrl = 'http://localhost:8080/series'
 
-  startChar: string = 'A'
+  startChar?: string
 
   private seriesSubject = new BehaviorSubject<UserSpaceSeries[]>([])
 
@@ -24,9 +24,10 @@ export class SeriesService {
     )
   }
 
-  subscribeToSeries(
-    observerOrNext? : Partial<Observer<UserSpaceSeries[]>> | ((value: UserSpaceSeries[]) => void)
-  ): Subscription {
-    return this.seriesSubject.subscribe(observerOrNext)
+  getSeries(): Observable<UserSpaceSeries[]> {
+    if (!this.startChar) {
+      this.onSelectNewLetter('T')
+    }
+    return this.seriesSubject.asObservable()
   }
 }

@@ -13,8 +13,21 @@ export class UserService {
     private http: HttpClient,
   ) { }
 
-  getUser(username: string): Observable<User> {
-    let options = {params: new HttpParams().set('username', username)}
-    return this.http.get<User>(this.usersUrl, options)
+  currentUsername?: string;
+  userSubject = new BehaviorSubject<User | undefined>(undefined);
+
+  getUser(username: string): Observable<User | undefined> {
+    if (this.currentUsername != username) {
+      let options = {params: new HttpParams().set('username', username)}
+      this.http.get<User>(this.usersUrl, options).subscribe(
+        u => this.userSubject.next(u)
+      )
+      this.currentUsername = username;
+    }
+    return this.userSubject.asObservable()
+  }
+
+  getLoggedInUser(): Observable<User | undefined> {
+    return this.userSubject.asObservable()
   }
 }
