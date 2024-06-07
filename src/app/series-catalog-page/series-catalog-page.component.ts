@@ -4,13 +4,15 @@ import {NavBarComponent} from "../nav-bar/nav-bar.component";
 import {User} from "../User";
 import {UserService} from "../user.service";
 import {SeriesService} from "../series.service";
+import {StartLetterSelectorComponent} from "../initial-selector/start-letter-selector.component";
 
 @Component({
   selector: 'app-series-catalog-page',
   standalone: true,
   imports: [
     SeriesListComponent,
-    NavBarComponent
+    NavBarComponent,
+    StartLetterSelectorComponent
   ],
   templateUrl: './series-catalog-page.component.html',
   styleUrl: './series-catalog-page.component.css'
@@ -22,7 +24,7 @@ export class SeriesCatalogPageComponent {
   constructor(
     private userService: UserService,
     private seriesService: SeriesService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.userService.getLoggedInUser().subscribe(
