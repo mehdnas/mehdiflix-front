@@ -2,6 +2,8 @@ import {Component, Input} from '@angular/core';
 import { NgbPaginationModule, NgbAlertModule } from "@ng-bootstrap/ng-bootstrap";
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {User} from "../User";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,4 +17,13 @@ export class NavBarComponent {
   @Input()
   username?: string;
 
+  user?: User;
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    if (this.username) {
+      this.userService.getUser(this.username).subscribe(u => this.user = u)
+    }
+  }
 }

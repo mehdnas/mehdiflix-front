@@ -9,25 +9,42 @@ import {BehaviorSubject, catchError, Observable, of, tap} from "rxjs";
 export class UserService {
 
   private usersUrl = 'http://localhost:8080/users'
-  constructor(
-    private http: HttpClient,
-  ) { }
 
   currentUsername?: string;
   userSubject = new BehaviorSubject<User | undefined>(undefined);
+  private user?: User
+
+  constructor(
+    private http: HttpClient,
+  ) {
+    this.userSubject.asObservable().subscribe(
+      u => this.user = u
+    )
+  }
 
   getUser(username: string): Observable<User | undefined> {
     if (this.currentUsername != username) {
-      let options = {params: new HttpParams().set('username', username)}
-      this.http.get<User>(this.usersUrl, options).subscribe(
-        u => this.userSubject.next(u)
-      )
+      this.retrieveUserFromServer(username)
       this.currentUsername = username;
     }
     return this.userSubject.asObservable()
   }
 
+  private retrieveUserFromServer(username: string) {
+    let options = {params: new HttpParams().set('username', username)}
+    this.http.get<User>(this.usersUrl, options).subscribe(
+      u => this.userSubject.next(u)
+    )
+  }
+
   getLoggedInUser(): Observable<User | undefined> {
     return this.userSubject.asObservable()
+  }
+
+  addSeriesToUser(seriesId: number) {
+    console.assert(this.user != undefined)
+    const url = `${this.usersUrl}/${this.user?.id}/addedSeries/${seriesId}`
+    this.http.put(url, {})
+    this.retrieveUserFromServer(this.user?.username!)
   }
 }

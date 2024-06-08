@@ -1,3 +1,11 @@
+
+export class SeriesEntry{
+  constructor(
+    public series: UserSpaceSeries,
+    public selected: boolean = false
+  ) {}
+}
+
 export interface UserSpaceSeries {
   title: string;
   description: string;
@@ -15,8 +23,8 @@ export enum SeriesType {
 }
 
 export interface Person {
-  name: string;
-  surname: string;
-  secondSurname?: string;
+  firstName: string;
+  lastName: string;
+  secondLastName?: string;
   id: number;
 }

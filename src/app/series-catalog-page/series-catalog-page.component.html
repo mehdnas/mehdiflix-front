@@ -1,9 +1,11 @@
 <div class="container">
   <div class="row">
-    <app-nav-bar [username]="user?.username"></app-nav-bar>
-  </div>
-  <div class="row">
-    <app-start-letter-selector></app-start-letter-selector>
+    <div class="col-9 p-0">
+      <app-start-letter-selector></app-start-letter-selector>
+    </div>
+    <div class="col-3 p-0">
+      <app-series-search></app-series-search>
+    </div>
   </div>
   <div class="row">
     <app-series-list></app-series-list>

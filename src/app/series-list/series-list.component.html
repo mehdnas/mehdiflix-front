@@ -1,8 +1,5 @@
 <div class="container">
   <div class="row" *ngFor="let s of series">
-    <div class="col-9"><h4>{{s.title}}</h4></div>
-    <div class="col-3">
-      <button class="btn">Agregar</button>
-    </div>
+    <app-series-entry [seriesEntry]="s"></app-series-entry>
   </div>
 </div>

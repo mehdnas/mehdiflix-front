@@ -5,6 +5,7 @@ import {User} from "../User";
 import {UserService} from "../user.service";
 import {SeriesService} from "../series.service";
 import {StartLetterSelectorComponent} from "../initial-selector/start-letter-selector.component";
+import {SeriesSearchComponent} from "../series-search/series-search.component";
 
 @Component({
   selector: 'app-series-catalog-page',
@@ -12,7 +13,8 @@ import {StartLetterSelectorComponent} from "../initial-selector/start-letter-sel
   imports: [
     SeriesListComponent,
     NavBarComponent,
-    StartLetterSelectorComponent
+    StartLetterSelectorComponent,
+    SeriesSearchComponent
   ],
   templateUrl: './series-catalog-page.component.html',
   styleUrl: './series-catalog-page.component.css'
