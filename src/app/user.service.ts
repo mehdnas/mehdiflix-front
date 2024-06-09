@@ -42,9 +42,9 @@ export class UserService {
   }
 
   addSeriesToUser(seriesId: number) {
-    console.assert(this.user != undefined)
     const url = `${this.usersUrl}/${this.user?.id}/addedSeries/${seriesId}`
-    this.http.put(url, {})
-    this.retrieveUserFromServer(this.user?.username!)
+    this.http.put(url, {}).subscribe(
+      b => this.retrieveUserFromServer(this.user?.username!)
+    )
   }
 }
